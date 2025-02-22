@@ -19,7 +19,7 @@ class Room {
 
     public Chest getChest() {
         return chests;
-    }
+    } 
 
     public String getName() {
         return name;
