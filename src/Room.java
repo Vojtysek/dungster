@@ -5,21 +5,29 @@ class Room {
     private final int x;
     private final int y;
     private final List<Integer> doors;
-    private final boolean visible;
-    private final Chest chests;
+    private boolean visible;
+    private Item[] dropedItem;
 
-    public Room(String name, int x, int y, List<Integer> doors, boolean visible, Chest chests) {
+    public Room(String name, int x, int y, List<Integer> doors, boolean visible) {
         this.name = name;
         this.x = x;
         this.y = y;
         this.doors = doors;
         this.visible = visible;
-        this.chests = chests;
     }
 
-    public Chest getChest() {
-        return chests;
-    } 
+    public Item[] getDropedItem() {
+        return dropedItem;
+    }
+
+    public void addDropedItem(Item item) {
+        for (int i = 0; i < dropedItem.length; i++) {
+            if (dropedItem[i] == null) {
+                dropedItem[i] = item;
+                break;
+            }
+        }
+    }
 
     public String getName() {
         return name;
@@ -37,17 +45,11 @@ class Room {
         return visible;
     }
 
-    public boolean hasDoor(int direction) {
-        return doors.contains(direction);
+    public void setVisibility() {
+        visible = true;
     }
 
-    public void displayRoom() {
-        int width = 20;
-        for (int i = 0; i < width; i++) {
-            int height = 20;
-            for (int j = 0; j < height; j++) {
-                System.out.print(doors.get(i) + ", ");
-            }
-        }
+    public boolean hasDoor(int direction) {
+        return doors.contains(direction);
     }
 }

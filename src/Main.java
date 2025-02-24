@@ -2,16 +2,28 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static utils.Writer.clearScreen;
+import static utils.Terminal.clearScreen;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
+
         Player player = new Player(createPlayer());
-        Narrator narrator = new Narrator(player);
-        Map map = new Map();
+        Map map = new Map(player);
+        Narrator narrator = new Narrator(player, map);
 
         narrator.Intro();
-        narrator.ExploreDungeon(player, map);
+
+        if (player.getCurrentRoom() == Rooms.Cell) {
+            narrator.PrisonCell(player, map);
+        }
+        if (player.getCurrentRoom() == Rooms.B) {
+            System.out.println("You are in room B");
+            while (true) {
+                Narrator.displayInGameMenu(player, map);
+            }
+        } else {
+            System.out.println("You are in void, how tf did you managed that?!");
+        }
     }
 
     private static String createPlayer() throws IOException {

@@ -1,10 +1,18 @@
 public class Player {
     private final String name;
-    private final Inventory inventory = new Inventory();
-    private final Room[]  knownRooms = new Room[0];
+    private final Inventory inventory = new Inventory(getCurrentRoom());
+    private Room currentRoom = Rooms.Cell;
 
     public Player(String name) {
         this.name = name;
+    }
+
+    public void setCurrentRoom(Room room) {
+        currentRoom = room;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
     }
 
     public String getName() {
@@ -13,9 +21,5 @@ public class Player {
 
     public Inventory getInventory() {
         return inventory;
-    }
-
-    public Room[] getKnownRooms() {
-        return knownRooms;
     }
 }

@@ -1,3 +1,7 @@
+import utils.Terminal;
+
+import java.io.IOException;
+
 public class Item {
     private final String itemName;
     private final String itemType;
@@ -20,5 +24,16 @@ public class Item {
 
     public String getItemType() {
         return itemType;
+    }
+
+    public void displayItem() throws IOException {
+        System.out.println("┌──────────────────────┐");
+        System.out.print("│ ");
+        System.out.printf("%-20s", " " + getItemName());
+        System.out.println(" │");
+        System.out.println("└──────────────────────┘");
+//        TODO: dropItem();
+        Terminal.waitForInteraction();
+        Terminal.clearScreen();
     }
 }
