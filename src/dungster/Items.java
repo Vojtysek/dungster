@@ -1,4 +1,9 @@
+package dungster;
+
+import java.util.ArrayList;
+
 public class Items {
+
     public static Item ancientKey = new Item(
             "Ancient Key",
             "Artifact",

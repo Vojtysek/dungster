@@ -1,3 +1,5 @@
+package dungster;
+
 import utils.Terminal;
 
 import java.io.IOException;
@@ -17,13 +19,9 @@ public class Map {
         add(Rooms.I);
         add(Rooms.FinalStage);
     }};
-    private Room currentRoom;
 
     private static Player player;
     private final String[][] grid = new String[3][5];
-
-//    X = vertical
-//    Y = horizontal
 
     public Map(Player player) {
         Map.player = player;
@@ -63,7 +61,11 @@ public class Map {
 
                         if (line == 1) {
                             String displayName = " " + cell;
-                            System.out.printf("%-11s", displayName);
+                            String paddedName = String.format("%-11s", displayName);
+                            if (player.getCurrentRoom() != null && r == player.getCurrentRoom()) {
+                                paddedName = "\u001B[43;30m" + paddedName + "\u001B[0m";
+                            }
+                            System.out.print(paddedName);
                         } else {
                             System.out.print("           ");
                         }
@@ -96,7 +98,6 @@ public class Map {
         Terminal.clearScreen();
     }
 
-
     public Room findRoom(String name) {
         for (Room room : rooms) {
             if (room.getName().equals(name)) {
@@ -104,13 +105,5 @@ public class Map {
             }
         }
         return null;
-    }
-
-    public void selectRoom(Room room) {
-        currentRoom = room;
-    }
-
-    public Room getCurrentRoom() {
-        return currentRoom;
     }
 }

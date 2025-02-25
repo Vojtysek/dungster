@@ -1,17 +1,25 @@
+package dungster;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static utils.Terminal.clearScreen;
+import static utils.Terminal.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException, InterruptedException {
 
+    public static boolean dev = true;
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        RunPub();
+    }
+
+    private static void RunPub() throws IOException, InterruptedException {
         Player player = new Player(createPlayer());
         Map map = new Map(player);
         Narrator narrator = new Narrator(player, map);
 
-        narrator.Intro();
+        if (!dev) narrator.Intro();
 
         if (player.getCurrentRoom() == Rooms.Cell) {
             narrator.PrisonCell(player, map);

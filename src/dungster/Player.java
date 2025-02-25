@@ -1,10 +1,13 @@
+package dungster;
+
 public class Player {
     private final String name;
-    private final Inventory inventory = new Inventory(getCurrentRoom());
+    private final Inventory inventory;
     private Room currentRoom = Rooms.Cell;
 
     public Player(String name) {
         this.name = name;
+        this.inventory = new Inventory(getCurrentRoom());
     }
 
     public void setCurrentRoom(Room room) {

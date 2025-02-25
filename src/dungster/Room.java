@@ -1,3 +1,5 @@
+package dungster;
+
 import java.util.List;
 
 class Room {

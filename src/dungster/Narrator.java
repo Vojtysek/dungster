@@ -1,3 +1,5 @@
+package dungster;
+
 import utils.Terminal;
 
 import java.io.IOException;
@@ -9,7 +11,7 @@ import static utils.Terminal.typeWriter;
 public class Narrator {
 
     private final Player player;
-    
+
     public Narrator(Player player, Map map) {
         this.player = player;
     }

@@ -1,3 +1,5 @@
+package dungster;
+
 import utils.Terminal;
 
 import java.io.IOException;
@@ -32,8 +34,5 @@ public class Item {
         System.out.printf("%-20s", " " + getItemName());
         System.out.println(" │");
         System.out.println("└──────────────────────┘");
-//        TODO: dropItem();
-        Terminal.waitForInteraction();
-        Terminal.clearScreen();
     }
 }

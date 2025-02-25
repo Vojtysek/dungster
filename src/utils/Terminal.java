@@ -1,15 +1,18 @@
 package utils;
 
+import dungster.Main;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Terminal {
+
     public static void typeWriter(String text, int sleepTime) throws InterruptedException {
         for (int i = 0; i < text.length(); i++) {
             System.out.print(text.charAt(i));
             try {
-                Thread.sleep(50);
+                Thread.sleep(Main.dev ? 0 : 50);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
