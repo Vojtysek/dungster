@@ -2,7 +2,7 @@ package dungster;
 
 import java.util.List;
 
-class Room {
+public class Room {
     private final String name;
     private final int x;
     private final int y;

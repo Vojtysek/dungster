@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Items {
 
     public static Item ancientKey = new Item(
-            "Ancient Key",
-            "Artifact",
-            "A mysterious key said to unlock the secrets of the dungeon and alter the fate of its captive souls."
+            "Old Metal Key",
+            "Key",
+            "A mysterious key said to unlock something."
     );
 
     public static Item keyOfOblivion = new Item(

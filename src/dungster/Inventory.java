@@ -1,9 +1,9 @@
 package dungster;
 
+import utils.Terminal;
+
 import java.io.IOException;
 import java.util.ArrayList;
-
-import utils.Terminal;
 
 public class Inventory {
     private final ArrayList<Item> items = Main.dev ? new ArrayList<>() {{
@@ -67,7 +67,6 @@ public class Inventory {
 
         int cols = 5;
         int rows = 2;
-        int totalCells = rows * cols;
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {

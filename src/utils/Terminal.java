@@ -12,7 +12,7 @@ public class Terminal {
         for (int i = 0; i < text.length(); i++) {
             System.out.print(text.charAt(i));
             try {
-                Thread.sleep(Main.dev ? 0 : 50);
+                Thread.sleep(Main.dev ? 0 : 5);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
