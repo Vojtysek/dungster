@@ -11,7 +11,17 @@
 
 ## Instalace
 
-1. **Požadavky:** Ujisti se, že máš nainstalovanou Javu (JDK 8 nebo novější).
+1. **Obecné požadavky:** 
+- Ujisti se, že máš nainstalovanou Javu (JDK 8 nebo novější). 
+- Velikost fontu terminálu: **13**
+- Aplikace je tvořena aby běžela mimo terminál IntelliJ IDEA, jelikož tento terminál je malý a neumožňuje správné zobrazení textu.
+
 2. **Klónování repozitáře:**
    ```bash
    git clone https://github.com/tvoje-uzivatelske-jmeno/nazev-repozitare.git
+3. **Spouštění hry:**
+   ```bash
+   cd nazev-repozitare
+   javac Main.java
+   java Main
+   ```

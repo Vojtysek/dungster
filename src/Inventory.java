@@ -1,7 +1,3 @@
-package dungster;
-
-import utils.Terminal;
-
 import java.io.IOException;
 import java.util.ArrayList;
 

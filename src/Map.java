@@ -1,10 +1,5 @@
-package dungster;
-
-import utils.Terminal;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Map {

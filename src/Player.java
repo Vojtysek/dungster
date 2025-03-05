@@ -1,5 +1,3 @@
-package dungster;
-
 public class Player {
     private final String name;
     private final Inventory inventory;
@@ -12,6 +10,7 @@ public class Player {
 
     public void setCurrentRoom(Room room) {
         currentRoom = room;
+        room.setVisibility();
     }
 
     public Room getCurrentRoom() {
