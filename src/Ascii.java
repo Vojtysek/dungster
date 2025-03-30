@@ -11,8 +11,8 @@ public class Ascii {
     public void convertToAscii(String path) throws IOException {
         BufferedImage baseImage = ImageIO.read(new File(path));
 
-        int finalWidth = 180-1;
-        int finalHeight = 50;
+        int finalWidth = 450-1;
+        int finalHeight = 150;
         double scaleX = (double) baseImage.getWidth() / finalWidth;
         double scaleY = (double) baseImage.getHeight() / finalHeight;
 

@@ -1,23 +1,14 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Map {
-    private final ArrayList<Room> rooms = new ArrayList<>() {{
-        add(Rooms.Cell);
-        add(Rooms.Where);
-        add(Rooms.C);
-        add(Rooms.D);
-        add(Rooms.NotEnd);
-        add(Rooms.F);
-        add(Rooms.Hidden);
-        add(Rooms.H);
-        add(Rooms.I);
-        add(Rooms.FinalStage);
-    }};
+    //for some reason, the 4 is vertical and 5 is horizontal, but I don't have time to deal with this
+    // 4 = vertical, 5 = horizontal
+    private final String[][] grid = new String[4][5];
 
     private static Player player;
-    private final String[][] grid = new String[3][6];
+    ArrayList<Room> rooms = Rooms.getRooms();
+    ArrayList<Tunnel> tunnels = Tunnels.getTunnels();
 
     public Map(Player player) {
         Map.player = player;
@@ -30,17 +21,26 @@ public class Map {
             }
         }
 
+        for (Tunnel tunnel : tunnels) {
+            Room from = tunnel.getFrom();
+            Room to = tunnel.getTo();
+
+            if (from.isVisible() && to.isVisible()) {
+                drawTunnel(from.getX(), from.getY(), to.getX(), to.getY());
+            }
+        }
+
         System.out.println("Mapa:");
 
         int contentWidth = 18;
 
         for (String[] row : grid) {
             for (String cell : row) {
-                if (cell != null) {
+                if (cell != null && findRoom(cell) != null) {
                     Room r = findRoom(cell);
                     System.out.print("┌");
                     for (int i = 0; i < contentWidth; i++) {
-                        System.out.print((i == (contentWidth / 2) && Objects.requireNonNull(r).hasDoor(0)) ? " " : "─");
+                        System.out.print((i == (contentWidth / 2) && r.hasDoor(0)) ? " " : "─");
                     }
                     System.out.print("┐ ");
                 } else {
@@ -57,11 +57,11 @@ public class Map {
             }
 
             for (String cell : row) {
-                if (cell != null) {
+                if (cell != null && findRoom(cell) != null) {
                     Room r = findRoom(cell);
                     System.out.print("└");
                     for (int i = 0; i < contentWidth; i++) {
-                        System.out.print((i == (contentWidth / 2) && Objects.requireNonNull(r).hasDoor(1)) ? " " : "─");
+                        System.out.print((i == (contentWidth / 2) && r.hasDoor(1)) ? " " : "─");
                     }
                     System.out.print("┘ ");
                 } else {
@@ -78,11 +78,41 @@ public class Map {
         Terminal.clearScreen();
     }
 
+    private void drawTunnel(int x1, int y1, int x2, int y2) {
+        int dx = Integer.compare(x2, x1);
+        int dy = Integer.compare(y2, y1);
+
+        int x = x1 + dx;
+        int y = y1 + dy;
+
+        while (x != x2 || y != y2) {
+            if (grid[y][x] == null && dx != 0 && dy == 0) {
+                grid[y][x] = "─";
+            }
+
+            if (x != x2) x += dx;
+            if (y != y2) y += dy;
+        }
+    }
+
     private void printCell(String cell, int line, int contentWidth) {
         if (cell == null) {
             System.out.printf("%" + (contentWidth + 3) + "s", " ");
             return;
         }
+
+        if (cell.equals("─")) {
+            if (line == 1 || line == 3) {
+                System.out.print(cell);
+                System.out.print("─".repeat(contentWidth));
+                System.out.print(cell);
+            } else {
+                System.out.print(" ".repeat(contentWidth + 2));
+            }
+            System.out.print(" ");
+            return;
+        }
+
 
         Room r = findRoom(cell);
         assert r != null;

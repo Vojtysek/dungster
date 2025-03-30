@@ -13,16 +13,19 @@ public class Main {
 
         if (!dev) narrator.Intro();
 
-        if (player.getCurrentRoom() == Rooms.Cell) {
+        if (player.getCurrentRoom() == Rooms.Chamber) {
             narrator.PrisonCell();
         }
-        if (player.getCurrentRoom() == Rooms.Where) {
+        if (player.getCurrentRoom() == Rooms.Puppets) {
             System.out.println("You are in room B");
             while (true) {
-                Terminal.displayInGameMenu(player,map);
+                Terminal.displayInGameMenu(player, map);
             }
         } else {
             System.out.println("You are in void, how tf did you managed that?!");
         }
+
+//        Ascii ascii = new Ascii();
+//        ascii.convertToAscii("src/utils/ascii/wizard.png");
     }
 }

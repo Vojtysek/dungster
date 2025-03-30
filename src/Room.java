@@ -1,7 +1,7 @@
 import java.util.List;
 
 public class Room {
-    private final String name;
+    private String name;
     private final int x;
     private final int y;
     private final List<Integer> doors;
@@ -15,6 +15,14 @@ public class Room {
         this.doors = doors;
         this.visible = visible;
     }
+
+    public Room(int x, int y, List<Integer> doors, boolean visible) {
+        this.x = x;
+        this.y = y;
+        this.doors = doors;
+        this.visible = visible;
+    }
+
 
     public Item[] getDropedItem() {
         return dropedItem;

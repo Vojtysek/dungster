@@ -4,18 +4,22 @@ import java.util.List;
 
 public class Rooms {
 
-    public static Room Cell = new Room("Cell", 0, 0, List.of(2), true);
-    public static Room Where = new Room("Weird Shape?", 1, 0, Arrays.asList(1, 2, 3), Main.dev);
-    public static Room Hidden = new Room("Hidden Pathway", 1, 1, Arrays.asList(0, 1), Main.dev);
-    public static Room C = new Room("C", 2, 0, Arrays.asList(2, 3), Main.dev);
-    public static Room D = new Room("D", 3, 0, Arrays.asList(1, 3), Main.dev);
-    public static Room F = new Room("F", 3, 2, Arrays.asList(0, 2, 3), Main.dev);
-    public static Room H = new Room("H", 1, 2, Arrays.asList(0, 2), Main.dev);
-    public static Room I = new Room("I", 2, 2, Arrays.asList(2, 3), Main.dev);
-    public static Room NotEnd = new Room("Is this end?", 3, 1, List.of(0), Main.dev);
-    public static Room FinalStage = new Room("Final", 4, 2, List.of(3), Main.dev);
+    // Up - 0, Right - 2, Down - 1, Left - 3
+
+    public static Room Chamber = new Room("Probuzení", 1, 0, Arrays.asList(1, 2), true);
+    public static Room Puppets = new Room("Sklad Loutek", 3, 0, Arrays.asList(1, 3), Main.dev);
+    public static Room Mirrors = new Room("Síň Zrcadel", 1, 1, Arrays.asList(0, 2, 3), Main.dev);
+    public static Room Voices = new Room("Šeptající hlasy", 3, 1, Arrays.asList(0, 2, 3), Main.dev);
+    public static Room Mecha = new Room("Mechanická dílna", 0, 1, Arrays.asList(1, 2), Main.dev);
+    public static Room Knots = new Room("Komora uzlů", 0, 2, Arrays.asList(0, 2), Main.dev);
+    public static Room Lies = new Room("Archiv lží", 4, 1, Arrays.asList(1, 3), Main.dev);
+    public static Room Choices = new Room("Místnost voleb", 4, 2, Arrays.asList(0, 3), Main.dev);
+    public static Room Doomsday = new Room("Dveře soudného dne", 2, 2, Arrays.asList(1, 2, 3), Main.dev);
+    public static Room Fate = new Room("Zrcadlo Osud", 2, 3, List.of(0), Main.dev);
+
+
 
     public static ArrayList<Room> getRooms() {
-        return new ArrayList<>(Arrays.asList(Cell, Where, C, D, NotEnd, F, Hidden, H, I, FinalStage));
+        return new ArrayList<>(Arrays.asList(Chamber, Puppets, Mirrors, Voices, Mecha, Knots, Lies, Choices, Doomsday, Fate));
     }
 }

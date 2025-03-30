@@ -1,7 +1,7 @@
 public class Player {
     private final String name;
     private final Inventory inventory;
-    private Room currentRoom = Rooms.Cell;
+    private Room currentRoom = Rooms.Chamber;
 
     public Player(String name) {
         this.name = name;

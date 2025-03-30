@@ -45,7 +45,7 @@ public class Narrator {
                         Terminal.typeWriter("\nYou are now free from the prison cell!", 1000);
                         sleep(1000);
                         player.getInventory().removeItem(Items.ancientKey);
-                        player.setCurrentRoom(Rooms.Where);
+                        player.setCurrentRoom(Rooms.Chamber);
                         WhereNow();
                     } else {
                         Terminal.InvalidChoice();
