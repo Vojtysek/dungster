@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Map {
+public class GameMap {
     //for some reason, the 4 is vertical and 5 is horizontal, but I don't have time to deal with this
     // 4 = vertical, 5 = horizontal
     private final String[][] grid = new String[4][5];
@@ -10,11 +10,16 @@ public class Map {
     ArrayList<Room> rooms = Rooms.getRooms();
     ArrayList<Tunnel> tunnels = Tunnels.getTunnels();
 
-    public Map(Player player) {
-        Map.player = player;
+    public GameMap(Player player) {
+        GameMap.player = player;
+
+        for (Room room : rooms) {
+            room.placeItemsRandomly();
+        }
+
     }
 
-    public void displayMap() throws IOException {
+    public void displayMap() {
         for (Room room : rooms) {
             if (room.isVisible()) {
                 grid[room.getY()][room.getX()] = room.getName();
@@ -47,13 +52,13 @@ public class Map {
                     System.out.printf("%" + (contentWidth + 3) + "s", " ");
                 }
             }
-            Terminal.printEmpty();
+            TerminalUtils.printEmpty();
 
             for (int line = 0; line < 5; line++) {
                 for (String cell : row) {
                     printCell(cell, line, contentWidth);
                 }
-                Terminal.printEmpty();
+                TerminalUtils.printEmpty();
             }
 
             for (String cell : row) {
@@ -68,14 +73,14 @@ public class Map {
                     System.out.printf("%" + (contentWidth + 3) + "s", " ");
                 }
             }
-            Terminal.printEmpty();
+            TerminalUtils.printEmpty();
         }
 
         System.out.println("Legend:");
         System.out.println("\u001B[41;30m" + " X " + "\u001B[0m - Aktuální pozice");
 
-        Terminal.waitForInteraction();
-        Terminal.clearScreen();
+        TerminalUtils.waitForInteraction();
+        TerminalUtils.clearScreen();
     }
 
     private void drawTunnel(int x1, int y1, int x2, int y2) {

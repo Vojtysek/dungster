@@ -42,7 +42,7 @@ public class Inventory {
     }
 
     public void dropItem(Item item) {
-        currentRoom.addDropedItem(item);
+        currentRoom.addItem(item);
         removeItem(item);
     }
 
@@ -50,13 +50,17 @@ public class Inventory {
         return items.isEmpty();
     }
 
-    public void openInventory() throws IOException, InterruptedException {
-        Terminal.clearScreen();
+    public void openInventory() {
+        TerminalUtils.clearScreen();
 
         if (items.isEmpty()) {
             System.out.println("Inventory is empty.");
-            Thread.sleep(1000);
-            Terminal.clearScreen();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            TerminalUtils.clearScreen();
             return;
         }
         System.out.println("Inventory:");
@@ -88,7 +92,11 @@ public class Inventory {
             System.out.println();
         }
 
-        Terminal.waitForInteraction();
-        Terminal.clearScreen();
+        try {
+            TerminalUtils.waitForInteraction();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        TerminalUtils.clearScreen();
     }
 }

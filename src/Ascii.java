@@ -23,17 +23,12 @@ public class Ascii {
                 int srcX = (int) (x * scaleX);
                 int srcY = (int) (y * scaleY);
                 int pixel = baseImage.getRGB(srcX, srcY);
-                int brightness = brightnessOfPixel(((pixel >> 16) & 0xff), ((pixel >> 8) & 0xff), (pixel & 0xff));
+                int brightness = ((((pixel >> 16) & 0xff)) + ((pixel >> 8) & 0xff) + (pixel & 0xff)) / 3;
                 int index = (int) (brightness / 255.0 * (density.length() - 1));
                 buffer.append(density.charAt(index));
             }
             buffer.append("\n");
         }
         System.out.println(buffer.toString());
-    }
-
-
-    private int brightnessOfPixel(int r, int g, int b) {
-        return (r + g + b) / 3;
     }
 }

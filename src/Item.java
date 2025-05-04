@@ -11,6 +11,10 @@ public class Item {
         this.itemDescription = itemDescription;
     }
 
+    @Override
+    public String toString() {
+        return itemName;
+    }
 
     public String getItemName() {
         return itemName;
