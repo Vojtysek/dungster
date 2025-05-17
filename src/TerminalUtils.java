@@ -4,24 +4,33 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Scanner;
 
-import static java.lang.Thread.sleep;
-
-
 public class TerminalUtils {
 
-    public static void handlePlayerInput(Player player, GameMap gameMap) throws IOException, InterruptedException {
+    public static void handlePlayerInput(GameMap gameMap) throws IOException, InterruptedException {
+        clearScreen();
         Scanner scanner = new Scanner(System.in);
-        Room actualRoom = player.getCurrentRoom();
+        Room actualRoom = Main.player.getCurrentRoom();
         Story current = actualRoom.getCurrentDialogue();
 
         while (true) {
-            actualRoom.displayRoom();
+            typeWriter(current.getLine());
 
-            System.out.println(current.getLine());
+            List<Story> options = current.getChoices();
 
-            List<Story> options = current.getNextChoices();
+            if (options.isEmpty()){
+                if (current.getFollowUp() != null) {
+                    current = current.getFollowUp();
+                    actualRoom.setCurrentDialogue(current);
+                    Thread.sleep(1000);
+                    clearScreen();
+                    continue;
+                } else {
+                    break;
+                }
+            }
+
             for (int i = 0; i < options.size(); i++) {
-                System.out.println((i + 1) + ". " + options.get(i).getLine());
+                typeWriter((i + 1) + ". " + options.get(i).getLine());
             }
 
             System.out.println("m - Open Menu");
@@ -29,7 +38,7 @@ public class TerminalUtils {
             String input = scanner.nextLine().trim();
 
             if (input.equalsIgnoreCase("m")) {
-                displayInGameMenu(player, gameMap);
+                displayInGameMenu(gameMap);
                 continue;
             }
 
@@ -38,12 +47,8 @@ public class TerminalUtils {
                 if (selected < 1 || selected > options.size()) {
                     invalidChoice();
                 } else {
-                    current = options.get(selected - 1);
+                    current = options.get(selected - 1).getFollowUp();
                     actualRoom.setCurrentDialogue(current);
-                    if (current.isTerminal()) {
-                        clearScreen();
-                        return;
-                    }
                 }
             } catch (NumberFormatException e) {
                 invalidChoice();
@@ -52,7 +57,7 @@ public class TerminalUtils {
         }
     }
     
-    public static void displayInGameMenu(Player player, GameMap gameMap) throws InterruptedException, IOException {
+    public static void displayInGameMenu(GameMap gameMap) throws InterruptedException, IOException {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -69,7 +74,7 @@ public class TerminalUtils {
                 choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
                     case 1:
-                        player.getInventory().openInventory();
+                        Main.player.getInventory().openInventory();
                         break;
                     case 2:
                         clearScreen();
@@ -81,7 +86,7 @@ public class TerminalUtils {
                     case 4:
                         clearScreen();
                         System.out.println("Exiting game...");
-                        sleep(1000);
+                        Thread.sleep(1000);
                         System.exit(0);
                         break;
                     default:
@@ -94,7 +99,7 @@ public class TerminalUtils {
         }
     }
 
-    public static void typeWriter(String text, int sleepTime) throws InterruptedException {
+    public static void typeWriter(String text) {
         for (int i = 0; i < text.length(); i++) {
             System.out.print(text.charAt(i));
             try {
@@ -103,8 +108,7 @@ public class TerminalUtils {
                 Thread.currentThread().interrupt();
             }
         }
-        Thread.sleep(sleepTime);
-        clearScreen();
+        System.out.println();
     }
 
     public static void clearScreen() {

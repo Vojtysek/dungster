@@ -48,12 +48,9 @@ public class Room {
         this.currentDialogue = choice;
     }
 
-    public Story getDialogueRoot() {
-        return dialogueRoot;
-    }
-
     public void setDialogueRoot(Story root) {
         this.dialogueRoot = root;
+        this.currentDialogue = root;
     }
 
     public void addItem(Item item) {

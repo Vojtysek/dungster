@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="dungster:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/dungster_jar</output-path>
+    <root id="archive" name="dungster.jar">
+      <element id="module-output" name="dungster" />
+      <element id="library" level="project" name="Jline 3.23.0" />
+    </root>
+  </artifact>
+</component>

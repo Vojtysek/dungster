@@ -2,16 +2,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Inventory {
-    private final ArrayList<Item> items = Main.dev ? new ArrayList<>() {{
-        add(Items.whisperingVoice);
-        add(Items.rustyKey);
-        add(Items.alchemistsElixir);
-        add(Items.mysticAmulet);
-        add(Items.fragmentedJournal);
-        add(Items.ancientKey);
-        add(Items.keyOfOblivion);
-        add(Items.lostSoul);
-    }} : new ArrayList<>();
+    //    private final ArrayList<Item> items = Main.dev ? new ArrayList<>() {{
+//        add(Items.ancientKey);
+//    }} : new ArrayList<>();
+    private final ArrayList<Item> items = new ArrayList<>();
     private final Room currentRoom;
 
     public Inventory(Room currentRoom) {
@@ -53,16 +47,6 @@ public class Inventory {
     public void openInventory() {
         TerminalUtils.clearScreen();
 
-        if (items.isEmpty()) {
-            System.out.println("Inventory is empty.");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            TerminalUtils.clearScreen();
-            return;
-        }
         System.out.println("Inventory:");
 
         int cols = 5;
@@ -77,6 +61,9 @@ public class Inventory {
             for (int c = 0; c < cols; c++) {
                 int index = r * cols + c;
                 String itemName = "";
+                if (items.isEmpty()) {
+                    itemName = "";
+                }
                 if (index < items.size()) {
                     itemName = items.get(index).getItemName();
                 }
@@ -91,6 +78,7 @@ public class Inventory {
             }
             System.out.println();
         }
+        System.out.print("Press any key to continue...");
 
         try {
             TerminalUtils.waitForInteraction();

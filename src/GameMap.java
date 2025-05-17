@@ -6,20 +6,17 @@ public class GameMap {
     // 4 = vertical, 5 = horizontal
     private final String[][] grid = new String[4][5];
 
-    private static Player player;
     ArrayList<Room> rooms = Rooms.getRooms();
     ArrayList<Tunnel> tunnels = Tunnels.getTunnels();
 
-    public GameMap(Player player) {
-        GameMap.player = player;
-
+    public GameMap() {
         for (Room room : rooms) {
             room.placeItemsRandomly();
         }
 
     }
 
-    public void displayMap() {
+    public void displayMap() throws IOException {
         for (Room room : rooms) {
             if (room.isVisible()) {
                 grid[room.getY()][room.getX()] = room.getName();
@@ -129,7 +126,7 @@ public class GameMap {
         if (line == 2) {
             System.out.print(" ".repeat(leftPadding));
             String paddedName = cell;
-            if (player.getCurrentRoom() != null && r == player.getCurrentRoom()) {
+            if (Main.player.getCurrentRoom() != null && r == Main.player.getCurrentRoom()) {
                 paddedName = "\u001B[41;30m" + paddedName + "\u001B[0m";
             }
             System.out.print(paddedName);
