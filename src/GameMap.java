@@ -10,13 +10,9 @@ public class GameMap {
     ArrayList<Tunnel> tunnels = Tunnels.getTunnels();
 
     public GameMap() {
-        for (Room room : rooms) {
-            room.placeItemsRandomly();
-        }
-
     }
 
-    public void displayMap() throws IOException {
+    public void displayMap() throws IOException, InterruptedException {
         for (Room room : rooms) {
             if (room.isVisible()) {
                 grid[room.getY()][room.getX()] = room.getName();
@@ -32,52 +28,75 @@ public class GameMap {
             }
         }
 
-        System.out.println("Mapa:");
+        while (true) {
 
-        int contentWidth = 18;
+            System.out.println("Mapa:");
 
-        for (String[] row : grid) {
-            for (String cell : row) {
-                if (cell != null && findRoom(cell) != null) {
-                    Room r = findRoom(cell);
-                    System.out.print("┌");
-                    for (int i = 0; i < contentWidth; i++) {
-                        System.out.print((i == (contentWidth / 2) && r.hasDoor(0)) ? " " : "─");
-                    }
-                    System.out.print("┐ ");
-                } else {
-                    System.out.printf("%" + (contentWidth + 3) + "s", " ");
-                }
-            }
-            TerminalUtils.printEmpty();
+            int contentWidth = 18;
 
-            for (int line = 0; line < 5; line++) {
+            for (String[] row : grid) {
                 for (String cell : row) {
-                    printCell(cell, line, contentWidth);
+                    if (cell != null && findRoom(cell) != null) {
+                        Room r = findRoom(cell);
+                        System.out.print("┌");
+                        for (int i = 0; i < contentWidth; i++) {
+                            System.out.print((i == (contentWidth / 2) && r.hasDoor(0)) ? " " : "─");
+                        }
+                        System.out.print("┐ ");
+                    } else {
+                        System.out.printf("%" + (contentWidth + 3) + "s", " ");
+                    }
+                }
+                TerminalUtils.printEmpty();
+
+                for (int line = 0; line < 5; line++) {
+                    for (String cell : row) {
+                        printCell(cell, line, contentWidth);
+                    }
+                    TerminalUtils.printEmpty();
+                }
+
+                for (String cell : row) {
+                    if (cell != null && findRoom(cell) != null) {
+                        Room r = findRoom(cell);
+                        System.out.print("└");
+                        for (int i = 0; i < contentWidth; i++) {
+                            System.out.print((i == (contentWidth / 2) && r.hasDoor(1)) ? " " : "─");
+                        }
+                        System.out.print("┘ ");
+                    } else {
+                        System.out.printf("%" + (contentWidth + 3) + "s", " ");
+                    }
                 }
                 TerminalUtils.printEmpty();
             }
 
-            for (String cell : row) {
-                if (cell != null && findRoom(cell) != null) {
-                    Room r = findRoom(cell);
-                    System.out.print("└");
-                    for (int i = 0; i < contentWidth; i++) {
-                        System.out.print((i == (contentWidth / 2) && r.hasDoor(1)) ? " " : "─");
+            System.out.println("Legend:");
+            System.out.println("\u001B[41;30m" + " X " + "\u001B[0m - Aktuální pozice");
+            System.out.println("Změna místnosti - číslo místnosti");
+            System.out.println("m - Menu");
+
+            System.out.print("> ");
+            String input = TerminalUtils.getInput();
+
+            if (input.equalsIgnoreCase("m")) {
+                TerminalUtils.displayInGameMenu(this);
+            } else {
+                try {
+                    int selected = Integer.parseInt(input);
+                    if (selected <= 1 || selected > rooms.size()) {
+                        Room r = findRoom(selected);
+                        if (r != null) {
+                            Main.player.setCurrentRoom(r);
+                            break;
+                        }
                     }
-                    System.out.print("┘ ");
-                } else {
-                    System.out.printf("%" + (contentWidth + 3) + "s", " ");
+                } catch (NumberFormatException e) {
+                    TerminalUtils.invalidChoice();
                 }
             }
-            TerminalUtils.printEmpty();
         }
 
-        System.out.println("Legend:");
-        System.out.println("\u001B[41;30m" + " X " + "\u001B[0m - Aktuální pozice");
-
-        TerminalUtils.waitForInteraction();
-        TerminalUtils.clearScreen();
     }
 
     private void drawTunnel(int x1, int y1, int x2, int y2) {
@@ -139,7 +158,6 @@ public class GameMap {
         System.out.print(" ");
     }
 
-
     public Room findRoom(String name) {
         for (Room room : rooms) {
             if (room.getName().equals(name)) {
@@ -147,5 +165,12 @@ public class GameMap {
             }
         }
         return null;
+    }
+
+    public Room findRoom(int index) {
+        if (index < 0 || index >= rooms.size()) {
+            return null;
+        }
+        return rooms.get(index);
     }
 }

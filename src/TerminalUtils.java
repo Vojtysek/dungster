@@ -33,7 +33,7 @@ public class TerminalUtils {
                 typeWriter((i + 1) + ". " + options.get(i).getLine());
             }
 
-            System.out.println("m - Open Menu");
+            typeWriter("m - Open Menu");
             System.out.print("> ");
             String input = scanner.nextLine().trim();
 
@@ -103,7 +103,7 @@ public class TerminalUtils {
         for (int i = 0; i < text.length(); i++) {
             System.out.print(text.charAt(i));
             try {
-                Thread.sleep(Main.dev ? 0 : 20);
+                Thread.sleep(Main.dev ? 0 : 55);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
@@ -129,5 +129,11 @@ public class TerminalUtils {
 
     public static void printEmpty() {
         System.out.println();
+    }
+
+    public static String getInput() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        return input.trim();
     }
 }

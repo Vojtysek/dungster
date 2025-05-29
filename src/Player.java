@@ -5,7 +5,8 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
-        this.inventory = new Inventory(getCurrentRoom());
+        this.inventory = new Inventory();
+        setCurrentRoom(currentRoom);
     }
 
     public void setCurrentRoom(Room room) {

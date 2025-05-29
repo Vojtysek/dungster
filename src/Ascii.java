@@ -8,11 +8,11 @@ public class Ascii {
 
     private static final String density = new StringBuilder("Ñ@#W$0?!;:+=-,._ ").reverse().toString();
 
-    public void convertToAscii(String path) throws IOException {
+    public String convertToAscii(String path) throws IOException {
         BufferedImage baseImage = ImageIO.read(new File(path));
 
-        int finalWidth = 450-1;
-        int finalHeight = 150;
+        int finalWidth = 70;
+        int finalHeight = 30;
         double scaleX = (double) baseImage.getWidth() / finalWidth;
         double scaleY = (double) baseImage.getHeight() / finalHeight;
 
@@ -29,6 +29,6 @@ public class Ascii {
             }
             buffer.append("\n");
         }
-        System.out.println(buffer.toString());
+        return buffer.toString();
     }
 }

@@ -33,4 +33,10 @@ public class Items {
             "Bracelet",
             "Threads of a bracelet that seem to pulse with energy."
     );
+
+    public static Item lostPage = new Item(
+            "Lost Page",
+            "Page",
+            "A page from a book that seems to be lost."
+    );
 }

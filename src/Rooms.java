@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +23,16 @@ public class Rooms {
         return new ArrayList<>(Arrays.asList(Chamber, Puppets, Mirrors, Voices, Mecha, Knots, Lies, Choices, Doomsday, Fate));
     }
 
-    public static void initializeDialogues() {
+    public static void initializeDialogues() throws IOException {
         Chamber.setDialogueRoot(Stories.ChamberDialogue());
+        Puppets.setDialogueRoot(Stories.PuppetsDialogue());
+        Voices.setDialogueRoot(Stories.WhispersDialogue());
+        Mirrors.setDialogueRoot(Stories.MirrorsDialogue());
+        Lies.setDialogueRoot(Stories.LiesDialogue());
+        Mecha.setDialogueRoot(Stories.MechaDialogue());
+        Knots.setDialogueRoot(Stories.KnotsDialogue());
+        Choices.setDialogueRoot(Stories.ChoicesDialogue());
+        Doomsday.setDialogueRoot(Stories.DoomsdayDialogue());
+        Fate.setDialogueRoot(Stories.FateDialogue());
     }
 }

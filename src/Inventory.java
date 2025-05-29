@@ -2,27 +2,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Inventory {
-    //    private final ArrayList<Item> items = Main.dev ? new ArrayList<>() {{
-//        add(Items.ancientKey);
-//    }} : new ArrayList<>();
     private final ArrayList<Item> items = new ArrayList<>();
-    private final Room currentRoom;
 
-    public Inventory(Room currentRoom) {
-        this.currentRoom = currentRoom;
-    }
-
-    public ArrayList<Item> getItems() {
-        return items;
-    }
-
-    public boolean hasItem(Item item) {
-        for (Item i : items) {
-            if (i == item) {
-                return true;
-            }
-        }
-        return false;
+    public Inventory() {
     }
 
     public void addItem(Item item) {
@@ -33,11 +15,6 @@ public class Inventory {
 
     public void removeItem(Item item) {
         items.remove(item);
-    }
-
-    public void dropItem(Item item) {
-        currentRoom.addItem(item);
-        removeItem(item);
     }
 
     public boolean isEmpty() {
@@ -86,5 +63,10 @@ public class Inventory {
             throw new RuntimeException(e);
         }
         TerminalUtils.clearScreen();
+    }
+
+
+    public ArrayList<Item> getItems() {
+        return items;
     }
 }

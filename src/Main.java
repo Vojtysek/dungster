@@ -1,10 +1,8 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Main {
-    public static boolean dev = false;
-    public static Player player = new Player("Steve");
+    public static boolean dev = true;
+    public static Player player = new Player("Robert");
 
     public Main() {
     }
@@ -16,16 +14,15 @@ public class Main {
             Intro();
         }
 
-
         while(true) {
             TerminalUtils.handlePlayerInput(gameMap);
         }
 
-        //(new Ascii()).convertToAscii("src/utils/ascii/wizard.png");
     }
 
     public static void Intro() throws InterruptedException {
-        TerminalUtils.typeWriter("Hello " + Main.player.getName() + "! Welcome to The Forgotten Descent!");
+        TerminalUtils.clearScreen();
+        TerminalUtils.typeWriter("Vítej " + Main.player.getName() + "e! Čeká tě dobrodružství v temném světě plném záhad a nebezpečí.");
         Thread.sleep(2000);
     }
 }
