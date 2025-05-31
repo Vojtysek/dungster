@@ -6,18 +6,32 @@ import java.util.Scanner;
 
 public class TerminalUtils {
 
+    static Scanner scanner = new Scanner(System.in);
+
     public static void handlePlayerInput(GameMap gameMap) throws IOException, InterruptedException {
         clearScreen();
-        Scanner scanner = new Scanner(System.in);
         Room actualRoom = Main.player.getCurrentRoom();
         Story current = actualRoom.getCurrentDialogue();
+
+        if (actualRoom.isDone()) {
+            System.out.println("Tato místnost je již hotová. Můžete pokračovat v průzkumu jiných místností zkrze mapu.");
+
+            typeWriter("m - Open Menu");
+            System.out.print("> ");
+            String input = scanner.nextLine().trim();
+
+            if (input.equalsIgnoreCase("m")) {
+                displayInGameMenu(gameMap);
+            }
+            return;
+        }
 
         while (true) {
             typeWriter(current.getLine());
 
             List<Story> options = current.getChoices();
 
-            if (options.isEmpty()){
+            if (options.isEmpty()) {
                 if (current.getFollowUp() != null) {
                     current = current.getFollowUp();
                     actualRoom.setCurrentDialogue(current);
@@ -39,9 +53,8 @@ public class TerminalUtils {
 
             if (input.equalsIgnoreCase("m")) {
                 displayInGameMenu(gameMap);
-                continue;
+                return;
             }
-
             try {
                 int selected = Integer.parseInt(input);
                 if (selected < 1 || selected > options.size()) {
@@ -56,7 +69,7 @@ public class TerminalUtils {
             clearScreen();
         }
     }
-    
+
     public static void displayInGameMenu(GameMap gameMap) throws InterruptedException, IOException {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -103,7 +116,7 @@ public class TerminalUtils {
         for (int i = 0; i < text.length(); i++) {
             System.out.print(text.charAt(i));
             try {
-                Thread.sleep(Main.dev ? 0 : 55);
+                Thread.sleep(Main.dev ? 0 : 5);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }

@@ -1,42 +1,15 @@
 public class Items {
 
-    public static Item ancientKey = new Item(
-            "Old Metal Key",
-            "Key",
-            "A mysterious key said to unlock something."
-    );
-    public static Item braceletThreads04 = new Item(
-            "Bracelet Threads",
-            "Bracelet",
-            "Threads of a bracelet that seem to pulse with energy."
-    );
+    public static Item ancientKey = new Item("Starý kovový klíč", "Klíč", "Tajemný klíč, o kterém se říká, že něco odemyká.");
 
-    public static Item braceletThreads14 = new Item(
-            "Bracelet Threads 1/4",
-            "Bracelet",
-            "Threads of a bracelet that seem to pulse with energy."
-    );
+    public static Item braceletThreads = new Item("Vlákna náramku", "Náramek", "Vlákna náramku, která jako by pulzovala energií.");
 
-    public static Item braceletThreads24 = new Item(
-            "Bracelet Threads 2/4",
-            "Bracelet",
-            "Threads of a bracelet that seem to pulse with energy."
-    );
+    public static Item threadMemory = new Item("Nit Paměti", "Kámen", "Kámen osudu představující Paměť.");
+    public static Item threadTruth = new Item("Nit Pravdy", "Kámen", "Kámen osudu představující Pravdu.");
+    public static Item threadChoice = new Item("Nit Volby", "Kámen", "Kámen osudu představující Volbu.");
+    public static Item threadTime = new Item("Nit Času", "Kámen", "Kámen osudu představující Čas.");
 
-    public static Item braceletThreads34 = new Item(
-            "Bracelet Threads 3/4",
-            "Bracelet",
-            "Threads of a bracelet that seem to pulse with energy."
-    );
-    public static Item braceletThreads44 = new Item(
-            "Bracelet Threads 4/4",
-            "Bracelet",
-            "Threads of a bracelet that seem to pulse with energy."
-    );
+    public static Item lostPage = new Item("Ztracená stránka", "Stránka", "Stránka z knihy, která se zdá být ztracená.");
 
-    public static Item lostPage = new Item(
-            "Lost Page",
-            "Page",
-            "A page from a book that seems to be lost."
-    );
+    public static Item map = new Item("Mapa", "Mapa", "Mapa oblasti, zobrazující různá místa a cesty.");
 }

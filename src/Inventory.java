@@ -1,7 +1,8 @@
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Inventory {
+public class Inventory implements Serializable {
     private final ArrayList<Item> items = new ArrayList<>();
 
     public Inventory() {
@@ -11,6 +12,19 @@ public class Inventory {
         if (!items.contains(item)) {
             items.add(item);
         }
+    }
+
+    public boolean hasItem(Item item) {
+        return items.contains(item);
+    }
+
+    public boolean hasItems(ArrayList<Item> itemsToCheck) {
+        for (Item item : itemsToCheck) {
+            if (!items.contains(item)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void removeItem(Item item) {

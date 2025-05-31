@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.List;
 
-public class Tunnel extends Room {
+public class Tunnel extends Room implements Serializable {
     private final Room from;
     private final Room to;
 
