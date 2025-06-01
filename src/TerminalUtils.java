@@ -116,7 +116,7 @@ public class TerminalUtils {
         for (int i = 0; i < text.length(); i++) {
             System.out.print(text.charAt(i));
             try {
-                Thread.sleep(Main.dev ? 0 : 5);
+                Thread.sleep(Main.dev ? 0 : 55);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
