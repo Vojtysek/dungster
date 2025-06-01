@@ -1,9 +1,8 @@
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class Story implements Serializable {
+public class Story {
     private final String line;
     private transient List<Consumer<Void>> pendingActions = new ArrayList<>();
     private Story followUp = null;
@@ -29,13 +28,6 @@ public class Story implements Serializable {
         pendingActions.clear();
     }
 
-    @Serial
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        this.pendingActions = new ArrayList<>();
-    }
-
-
     public Story getFollowUp() {
         return followUp;
     }
@@ -50,7 +42,7 @@ public class Story implements Serializable {
         return this;
     }
 
-    public void endGame() {
+    public Story endGame() {
         pendingActions.add((v) -> {
             try {
                 System.out.println("Konec hry. Děkujeme za hraní!");
@@ -60,16 +52,14 @@ public class Story implements Serializable {
                 Thread.currentThread().interrupt();
             }
         });
-    }
-
-    public Story thenRemoveItem(Item item) {
-        pendingActions.add((v) -> Main.player.getInventory().removeItem(item));
         return this;
     }
 
     public Story unlockNewRoom(Room room) {
-        room.setVisibility();
-        room.setDone(true);
+        pendingActions.add((v) -> {
+            Main.player.getCurrentRoom().setDone(true);
+            room.setVisibility();
+        });
         return this;
     }
 
@@ -83,27 +73,10 @@ public class Story implements Serializable {
 
     public Story gameOver(String reason) {
         pendingActions.add((v) -> {
-            try {
-                TerminalUtils.clearScreen();
-                System.out.println("GAME OVER: " + reason);
-                System.out.println("\nChceš hrát znovu? (a/n)");
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                String input = reader.readLine().trim().toLowerCase();
-
-                if (input.equals("a")) {
-                    Main.player = new Player();
-                    Rooms.initializeDialogues();
-                    Main.player.setCurrentRoom(Rooms.Chamber);
-                } else {
-                    System.out.println("Děkujeme za hraní!");
-                    Thread.sleep(2000);
-                    System.exit(0);
-                }
-            } catch (Exception e) {
-                System.out.println("Chyba: " + e.getMessage());
-                System.exit(1);
-            }
+            TerminalUtils.clearScreen();
+            System.out.println("GAME OVER: " + reason);
+            System.out.println("Hodně štěstí příště!");
+            System.exit(0);
         });
         return this;
     }

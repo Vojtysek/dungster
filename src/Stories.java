@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Stories {
@@ -197,9 +196,11 @@ public class Stories {
 
         Story end = new Story("Jakmile projdeš vybranými dveřmi, vše kolem potemní a ty se ocitáš před poslední branou.\n").unlockNewRoom(Rooms.Doomsday);
 
-        Story choice1 = new Story("Strach").setFollowUp(end);
-        Story choice2 = new Story("Touha").setFollowUp(end);
-        Story choice3 = new Story("Paměť").setFollowUp(end);
+        Story wrongChoice = new Story("Zvolil jsi špatnou cestu. Místnost se začíná smršťovat, stěny se k tobě blíží a ty cítíš, jak tě sevřou.\n").gameOver("Byl jsi pohlcen svými vlastními volbami.");
+
+        Story choice1 = new Story("Strach").setFollowUp(wrongChoice);
+        Story choice2 = new Story("Touha").setFollowUp(wrongChoice);
+        Story choice3 = new Story("Peníze").setFollowUp(wrongChoice);
         Story choice4 = new Story("Volba").setFollowUp(new Story("Zvolil jsi Volbu. V tvém náramku se zablýská nový kámen, který se sám zasune na své místo.").thenAddItem(Items.threadChoice).setFollowUp(end));
 
 
@@ -222,22 +223,20 @@ public class Stories {
     }
 
     public static Story FateDialogue() {
-        return new Story("") {
-            @Override
-            public String getLine() {
-                boolean hasAll = Main.player.getInventory().hasItem(Items.threadMemory) && Main.player.getInventory().hasItem(Items.threadTruth) && Main.player.getInventory().hasItem(Items.threadChoice) && Main.player.getInventory().hasItem(Items.threadTime);
+        Story win = new Story("""
+                V kruhové síni stojí obrovské zrcadlo. Neodráží okolí – jen tebe. A ne tebe, jaký jsi… ale jaký bys mohl být.
+                Jakmile poslední kámen zapadne na místo, zrcadlo se rozzáří a ukáže ti tvou pravou podobu. Poznal jsi všechny nitě osudu.
+                """).endGame();
 
-                if (hasAll) {
-                    endGame();
-                    return """
-                            V kruhové síni stojí obrovské zrcadlo. Neodráží okolí – jen tebe. A ne tebe, jaký jsi… ale jaký bys mohl být.
-                            Jakmile poslední kámen zapadne na místo, zrcadlo se rozzáří a ukáže ti tvou pravou podobu. Poznal jsi všechny nitě osudu.
-                            """;
-                } else {
-                    return "Zrcadlo zůstává temné. Něco ti chybí – poslední nit osudu.\n Musíš se vrátit a dokončit svou cestu.\n";
-                }
-            }
-        };
+        Story notYet = new Story("""
+                Zrcadlo zůstává temné. Zdá se, že něco chybí. Něco, co musíš najít.
+                Možná jsi zapomněl na některou z cest, které jsi prošel. Nebo jsi něco přehlédl?
+                """);
+
+        if (Main.player.getInventory().hasItem(Items.threadMemory) && Main.player.getInventory().hasItem(Items.threadTruth) && Main.player.getInventory().hasItem(Items.threadChoice) && Main.player.getInventory().hasItem(Items.threadTime)) {
+            return win;
+        } else {
+            return notYet;
+        }
     }
-
-}
+};

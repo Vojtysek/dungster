@@ -37,7 +37,7 @@ public class Maze {
                 if (x == playerX && y == playerY) {
                     System.out.print("•");
                 } else if (x == exitX && y == exitY) {
-                    System.out.print("E");
+                    System.out.print("X");
                 } else {
                     System.out.print(mazeLines[y].charAt(x));
                 }

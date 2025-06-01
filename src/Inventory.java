@@ -1,8 +1,8 @@
 import java.io.IOException;
-import java.io.Serializable;
+
 import java.util.ArrayList;
 
-public class Inventory implements Serializable {
+public class Inventory  {
     private final ArrayList<Item> items = new ArrayList<>();
 
     public Inventory() {

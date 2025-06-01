@@ -6,8 +6,8 @@ public class Items {
 
     public static Item threadMemory = new Item("Nit Paměti", "Kámen", "Kámen osudu představující Paměť.");
     public static Item threadTruth = new Item("Nit Pravdy", "Kámen", "Kámen osudu představující Pravdu.");
-    public static Item threadChoice = new Item("Nit Volby", "Kámen", "Kámen osudu představující Volbu.");
     public static Item threadTime = new Item("Nit Času", "Kámen", "Kámen osudu představující Čas.");
+    public static Item threadChoice = new Item("Nit Volby", "Kámen", "Kámen osudu představující Volbu.");
 
     public static Item lostPage = new Item("Ztracená stránka", "Stránka", "Stránka z knihy, která se zdá být ztracená.");
 

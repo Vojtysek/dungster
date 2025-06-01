@@ -1,23 +1,16 @@
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class Room implements Serializable {
-    private final String id;
+public class Room {
     private final int x;
     private final int y;
     private final List<Integer> doors;
-    private final Map<Item, int[][]> itemPositions = new HashMap<>();
     private int index;
     private String name;
     private boolean visible;
     private Story currentDialogue;
     private boolean done = false;
 
-    public Room(String id, String name, int index, int x, int y, List<Integer> doors, boolean visible) {
-        this.id = id;
+    public Room(String name, int index, int x, int y, List<Integer> doors, boolean visible) {
         this.name = name;
         this.index = index;
         this.x = x;
@@ -27,12 +20,10 @@ public class Room implements Serializable {
     }
 
     public Room(int x, int y, List<Integer> doors, boolean visible) {
-        this("undefined", "unnamed", -1, x, y, doors, visible);
-    }
-
-
-    public String getId() {
-        return id;
+        this.x = x;
+        this.y = y;
+        this.doors = doors;
+        this.visible = visible;
     }
 
     public Story getCurrentDialogue() {
@@ -60,7 +51,7 @@ public class Room implements Serializable {
     }
 
     public boolean isVisible() {
-        return visible;
+        return this.visible;
     }
 
     public void setVisibility() {
